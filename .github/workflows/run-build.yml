@@ -43,8 +43,12 @@ jobs:
           set -o pipefail
           echo "=== frontend: npm install ==="
           npm install  2>&1 | tee frontend-npminstall.log
+
+          echo "=== Fix native binaries ==="
           # Ensure the Linux native binding is present (fixes optional error on some systems)
           npm install @rolldown/binding-linux-x64-gnu@1.0.3 --no-save || true
+           npm install lightningcss-linux-x64-gnu@1.32.0 --no-save || true
+
           echo "=== frontend: build (vite) ==="
           npm run build  2>&1 | tee frontend-build.log
         working-directory: frontend
