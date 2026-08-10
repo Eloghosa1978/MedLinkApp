@@ -42,7 +42,7 @@ jobs:
         run: |
           set -o pipefail
           echo "=== frontend: npm ci ==="
-          npm ci  2>&1 | tee frontend-npmci.log
+          npm install  2>&1 | tee frontend-npmci.log
           echo "=== frontend: build (vite) ==="
           npm run build  2>&1 | tee frontend-build.log
         working-directory: frontend
