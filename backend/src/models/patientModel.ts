@@ -52,4 +52,4 @@ const patientSchema = new Schema(
 
 export type Patient = InferSchemaType<typeof patientSchema>;
 export type PatientDocument = HydratedDocument<Patient>;
-export const PatientModel = model<PatientDocument>("Patient", patientSchema);
+export const PatientModel = model<Patient>("Patient", patientSchema);

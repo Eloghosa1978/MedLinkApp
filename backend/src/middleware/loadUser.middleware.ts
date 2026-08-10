@@ -1,4 +1,3 @@
-import { decode } from "node:punycode";
 import { findUserById } from "../services/auth.service";
 import { NextFunction, Request, Response } from "express";
 
