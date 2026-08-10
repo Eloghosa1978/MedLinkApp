@@ -33,6 +33,14 @@ jobs:
           path: frontend/node_modules
           key: ${{ runner.os }}-frontend-node${{ matrix.node-version }}-${{ hashFiles('frontend/package-lock.json') }}
 
+      - name: Clear frontend node_modules cache
+        run: rm -rf node_modules package-lock.json
+        working-directory: frontend
+
+      - name: Clear backend node_modules cache
+        run: rm -rf node_modules package-lock.json
+        working-directory: backend
+
       - name: Install & build backend (logs to files)
         run: |
           set -o pipefail
