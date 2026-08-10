@@ -9,10 +9,6 @@ const doctorSchema = new Schema(
       required: true,
       unique: true,
     },
-    phoneNumber: {
-      type: String,
-      trim: true,
-    },
     primarySpecialization: {
       type: String,
       enum: SPECIALIZATIONS,
@@ -73,13 +69,17 @@ const doctorSchema = new Schema(
       ],
       default: ["physical"],
     },
+    consultationFee: {
+      type: Number,
+      min: 0,
+    },
     verificationStatus: {
       type: String,
       enum: ["pending", "verified", "rejected"],
       default: "pending",
     },
   },
-  { timestamps: true, strict: true}
+  { timestamps: true, strict: true },
 );
 
 export type Doctor = InferSchemaType<typeof doctorSchema>;
