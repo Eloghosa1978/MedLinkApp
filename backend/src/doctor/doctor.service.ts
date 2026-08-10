@@ -1,5 +1,6 @@
-import { FilterQuery } from "mongoose";
+import mongoose from "mongoose";
 import { DoctorModel, DoctorDocument } from "../models/doctorModel";
+
 
 /**
  * Params accepted for discovery (all optional)
@@ -119,12 +120,18 @@ export const buildSort = (sort?: DiscoveryParams["sort"]) => {
   }
 };
 
-export const buildPagination = (
+export const buildPagination = async (
   page?: number | string,
   limit?: number | string,
 ) => {
-  const p = Math.max(1, Number(page ?? 1));
-  const l = Math.min(100, Math.max(1, Number(limit ?? 10)));
-  const skip = (p - 1) * l;
-  
+
+  const p: number = Math.max(1, Number(page ?? 1));
+  const l: number = Math.min(100, Math.max(1, Number(limit ?? 10)));
+  const skip: number = (p - 1) * l;
+  const totalItems: number = await DoctorModel.countDocuments().exec();
+  const totalPages: number = Math.ceil(totalItems / l);
+  const hasNextPage: boolean = p < totalPages;
+  const hasPrevPage: boolean = p > 1;
+
+  return {page: p, limit: l, skip, totalItems};
 };
