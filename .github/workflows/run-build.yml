@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20]
+        node-version: [22]
 
     steps:
       - name: Checkout
@@ -41,7 +41,7 @@ jobs:
       - name: Install & build frontend (logs to files)
         run: |
           set -o pipefail
-          echo "=== frontend: npm ci ==="
+          echo "=== frontend: npm install ==="
           npm install  2>&1 | tee frontend-npmci.log
           echo "=== frontend: build (vite) ==="
           npm run build  2>&1 | tee frontend-build.log
