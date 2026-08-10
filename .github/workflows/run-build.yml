@@ -25,13 +25,13 @@ jobs:
         uses: actions/cache@v3
         with:
           path: backend/node_modules
-          key: ${{ runner.os }}-backend-${{ hashFiles('backend/package-lock.json') }}
+          key: ${{ runner.os }}-backend-node${{ matrix.node-version }}-${{ hashFiles('backend/package-lock.json') }}
 
       - name: Cache Node.js modules for frontend
         uses: actions/cache@v3
         with:
           path: frontend/node_modules
-          key: ${{ runner.os }}-frontend-${{ hashFiles('frontend/package-lock.json') }}
+          key: ${{ runner.os }}-frontend-node${{ matrix.node-version }}-${{ hashFiles('frontend/package-lock.json') }}
 
       - name: Install & build backend (logs to files)
         run: |
