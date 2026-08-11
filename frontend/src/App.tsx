@@ -19,6 +19,11 @@ import LabServices from './pages/LabServices';
 import DoctorDashboard from './pages/DoctorDashboard';
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
+import HealthMetrics from './pages/HealthMetrics';
+import MedicalOnboarding from './pages/MedicalOnboarding';
+import Diagnostics from './pages/Diagnostics';
+import SymptomsIntake from './pages/SymptomsIntake';
+import InsuranceBilling from './pages/InsuranceBilling';
 
 
 function App() {
@@ -44,6 +49,11 @@ function App() {
       <Route path='/doctordashboard' element={<DoctorDashboard/>}/>
       <Route path='/aboutpage' element={<AboutPage/>}/>
       <Route path='/servicespage' element={<ServicesPage/>}/>
+      <Route path='/healthmetrics' element={<HealthMetrics/>}/>      
+      <Route path='/medicalonboarding' element={<MedicalOnboarding/>}/> 
+      <Route path='/diagnostics' element={<Diagnostics/>}/> 
+      <Route path='/symptomsintake' element={<SymptomsIntake/>}/>
+      <Route path='insurancebilling' element={<InsuranceBilling/>}/>
     </Routes>
     </>
   )

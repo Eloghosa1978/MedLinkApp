@@ -194,7 +194,7 @@ const MessagingPage = () => {
 <span className="material-symbols-outlined">sentiment_satisfied</span>
 </button>
 </div>
-<textarea className="w-full bg-transparent border-none focus:ring-0 px-4 py-4 font-body-md resize-none max-h-40 chat-scrollbar" id="message-input" placeholder="Type your secure message..." rows={1}></textarea>
+<textarea className="w-full bg-transparent border-none focus:ring-0 px-4 py-4 font-body-md resize-none max-h-40 chat-scrollbar outline-none" id="message-input" placeholder="Type your secure message..." rows={1}></textarea>
 
 <div className="flex justify-between items-center px-4 pb-4">
 <div className="flex items-center gap-2 text-[12px] text-on-tertiary-container font-medium">
