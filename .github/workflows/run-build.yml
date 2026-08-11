@@ -1,0 +1,71 @@
+name: Run build for frontend and backend
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.23.1]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Clear frontend node_modules cache
+        run: rm -rf node_modules && npm cache clean --force
+        working-directory: frontend
+
+      - name: Clear backend node_modules cache
+        run: rm -rf node_modules && npm cache clean --force
+        working-directory: backend
+
+      - name: Install & build backend (logs to files)
+        run: |
+          set -o pipefail
+          echo "=== backend: npm ci ==="
+          npm ci 2>&1 | tee backend-npmci.log
+          echo "=== backend: build (tsc) ==="
+          npm run build  2>&1 | tee backend-build.log
+        working-directory: backend
+
+      - name: Install & build frontend (logs to files)
+        run: |
+          set -o pipefail
+          echo "=== frontend: npm install ==="
+          npm install  2>&1 | tee frontend-npminstall.log
+
+          echo "=== Fix native binaries ==="
+          # Ensure the Linux native binding is present (fixes optional error on some systems)
+          npm install @rolldown/binding-linux-x64-gnu@1.0.3 --no-save || true
+           npm install lightningcss-linux-x64-gnu@1.32.0 --no-save || true
+          echo "=== frontend: build (vite) ==="
+          npm run build  2>&1 | tee frontend-build.log
+        working-directory: frontend
+
+      - name: Upload build & test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            backend/backend-*.log
+            frontend/frontend-*.log
+
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-outputs
+          path: |
+            backend/dist
+            frontend/dist
