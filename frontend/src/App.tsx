@@ -55,7 +55,7 @@ function App() {
           <Route path="symptomsintake" element={<SymptomsIntake />} />
           <Route path="appointmentdetails" element={<AppointmentDetails />} />
           <Route path="telemedicineroom" element={<TelemedicineRoom />} />
-          <Route path="messagingpage" element={<MessagingPage />} />
+          <Route path="messaging" element={<MessagingPage />} />
           <Route path="digitalprescription" element={<DigitalPrescription />} />
           <Route path="medicalreports" element={<MedicalReportsPage />} />
           <Route path="medicalrecords" element={<MedicalRecords />} />

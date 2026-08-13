@@ -1,9 +1,10 @@
-import { onAuthStateChanged, type User } from "firebase/auth";
+import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 import { type ReactNode, useEffect, useState } from "react";
 import { auth } from "../firebaseConfig";
 import type { MongoUser, OnboardingPayload } from "../auth.types";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
+import { Navigate } from "react-router-dom";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -79,10 +80,23 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     return () => unsuscribe();
   }, []);
 
+  const handleLogout = async () => {
+    await signOut(auth);
+    setFirebaseUser(null);
+    setMongoUser(null);
+    <Navigate to="/login" replace />;
+  };
+
   return (
     <>
       <AuthContext.Provider
-        value={{ firebaseUser, mongoUser, loading, syncUserWithBackend }}
+        value={{
+          firebaseUser,
+          mongoUser,
+          loading,
+          syncUserWithBackend,
+          handleLogout,
+        }}
       >
         {children}
       </AuthContext.Provider>
