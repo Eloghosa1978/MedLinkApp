@@ -1,4 +1,8 @@
+import { useNavigate, Link } from "react-router-dom";
+
 const AppointmentDetails = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className="bg-surface text-on-surface font-body-md overflow-x-hidden">
@@ -11,28 +15,13 @@ const AppointmentDetails = () => {
               <nav className="hidden md:flex gap-4 ml-6">
                 <a
                   className="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors font-label-md text-label-md"
-                  href="#"
+                  onClick={() => navigate(-1)}
                 >
-                  Services
-                </a>
-                <a
-                  className="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors font-label-md text-label-md"
-                  href="#"
-                >
-                  Doctors
-                </a>
-                <a
-                  className="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors font-label-md text-label-md"
-                  href="#"
-                >
-                  About
+                  Go back
                 </a>
               </nav>
             </div>
             <div className="flex items-center gap-3">
-              <button className="px- h-[40px] font-label-md text-label-md text-secondary border border-secondary rounded-lg hover:bg-secondary-container/10 transition-all px-4">
-                Emergency
-              </button>
               <div className="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
                 <img
                   className="w-full h-full object-cover"
@@ -47,19 +36,13 @@ const AppointmentDetails = () => {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <nav className="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md mb-1">
-                <a className="hover:text-secondary" href="#">
-                  Dashboard
+                <a className="hover:text-secondary">
+                  <Link to="/patient/dashboard">Dashboard</Link>
                 </a>
                 <span className="material-symbols-outlined text-[14px]">
                   chevron_right
                 </span>
-                <a className="hover:text-secondary" href="#">
-                  Appointments
-                </a>
-                <span className="material-symbols-outlined text-[14px]">
-                  chevron_right
-                </span>
-                <span className="text-on-surface">Details</span>
+                <span className="text-on-surface">Appointments</span>
               </nav>
               <h1 className="font-headline-lg text-headline-lg text-on-surface">
                 Appointment #12345 - Confirmed
@@ -226,10 +209,7 @@ const AppointmentDetails = () => {
                             Virtual Suite 4
                           </p>
                         </div>
-                        <a
-                          className="text-secondary font-body-sm hover:underline"
-                          href="#"
-                        >
+                        <a className="text-secondary font-body-sm hover:underline">
                           Test connection speed
                         </a>
                       </div>
@@ -380,28 +360,16 @@ const AppointmentDetails = () => {
               </p>
             </div>
             <div className="flex gap-6">
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 Privacy Policy
               </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 Terms of Service
               </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 HIPAA Compliance
               </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 Contact Support
               </a>
             </div>
@@ -418,54 +386,33 @@ const AppointmentDetails = () => {
             </p>
           </div>
           <nav className="flex-1 space-y-1">
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
+            <a className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors">
               <span className="material-symbols-outlined">dashboard</span>
               <span className="font-label-md">Dashboard</span>
             </a>
-            <a
-              className="flex items-center gap-1 bg-secondary-container text-on-secondary-container rounded-lg p-3 shadow-sm translate-x-1 transition-all duration-200"
-              href="#"
-            >
+            <a className="flex items-center gap-1 bg-secondary-container text-on-secondary-container rounded-lg p-3 shadow-sm translate-x-1 transition-all duration-200">
               <span className="material-symbols-outlined">calendar_today</span>
               <span className="font-label-md">Appointments</span>
             </a>
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
+            <a className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors">
               <span className="material-symbols-outlined">monitoring</span>
               <span className="font-label-md">Health Metrics</span>
             </a>
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
+            <a className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors">
               <span className="material-symbols-outlined">description</span>
               <span className="font-label-md">Medical Records</span>
             </a>
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
+            <a className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors">
               <span className="material-symbols-outlined">settings</span>
               <span className="font-label-md">Settings</span>
             </a>
           </nav>
           <div className="pt-3 border-t border-outline-variant/10 space-y-1">
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
+            <a className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors">
               <span className="material-symbols-outlined">help</span>
               <span className="font-label-md">Support</span>
             </a>
-            <a
-              className="flex items-center gap-1 text-error p-3 hover:bg-error/5 rounded-lg transition-colors"
-              href="#"
-            >
+            <a className="flex items-center gap-1 text-error p-3 hover:bg-error/5 rounded-lg transition-colors">
               <span className="material-symbols-outlined">logout</span>
               <span className="font-label-md">Logout</span>
             </a>

@@ -1,38 +1,28 @@
+import { Link } from "react-router-dom";
+
 const LabServices = () => {
   return (
     <div className="bg-background text-on-background min-h-screen">
       <nav className="sticky top-0 z-50 bg-surface-container-lowest border-b border-outline-variant h-16 px-4 lg:px-10 flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <a className="flex items-center gap-2 text-primary" href="#">
+          <a className="flex items-center gap-2 text-primary">
             <span className="material-symbols-outlined text-secondary text-3xl">
               medical_services
             </span>
             <span className="text-xl font-bold tracking-tight">MedLink</span>
           </a>
           <div className="hidden md:flex items-center gap-6">
-            <a
-              className="text-on-surface-variant hover:text-primary font-medium text-sm"
-              href="#"
-            >
-              Dashboard
+            <a className="text-on-surface-variant hover:text-primary font-medium text-sm">
+              <Link to="/patient/dashboard">Dashboard</Link>
             </a>
-            <a
-              className="text-on-surface-variant hover:text-primary font-medium text-sm"
-              href="#"
-            >
-              Appointments
+            <a className="text-on-surface-variant hover:text-primary font-medium text-sm">
+              <Link to="/patient/appointmentdetails">Appointments</Link>
             </a>
-            <a
-              className="text-primary font-semibold text-sm border-b-2 border-primary py-5"
-              href="#"
-            >
-              Lab Services
+            <a className="text-primary font-semibold text-sm border-b-2 border-primary py-5">
+              <Link to="/patient/labservices">Lab Services</Link>
             </a>
-            <a
-              className="text-on-surface-variant hover:text-primary font-medium text-sm"
-              href="#"
-            >
-              Records
+            <a className="text-on-surface-variant hover:text-primary font-medium text-sm">
+              <Link to="/patient/labservices">Records</Link>
             </a>
           </div>
         </div>
@@ -175,10 +165,7 @@ const LabServices = () => {
                 <h2 className="text-headline-md text-primary">
                   Featured Lab Packages
                 </h2>
-                <a
-                  className="text-secondary text-sm font-semibold flex items-center gap-1 hover:underline"
-                  href="#"
-                >
+                <a className="text-secondary text-sm font-semibold flex items-center gap-1 hover:underline">
                   View All Packages{" "}
                   <span className="material-symbols-outlined text-sm">
                     arrow_forward
@@ -452,24 +439,16 @@ const LabServices = () => {
             </h4>
             <ul className="space-y-2 text-sm text-on-surface-variant">
               <li>
-                <a className="hover:text-secondary" href="#">
-                  Home Sample Collection
-                </a>
+                <a className="hover:text-secondary">Home Sample Collection</a>
               </li>
               <li>
-                <a className="hover:text-secondary" href="#">
-                  Test Preparation Guide
-                </a>
+                <a className="hover:text-secondary">Test Preparation Guide</a>
               </li>
               <li>
-                <a className="hover:text-secondary" href="#">
-                  Corporate Health Plans
-                </a>
+                <a className="hover:text-secondary">Corporate Health Plans</a>
               </li>
               <li>
-                <a className="hover:text-secondary" href="#">
-                  Privacy Policy
-                </a>
+                <a className="hover:text-secondary">Privacy Policy</a>
               </li>
             </ul>
           </div>
@@ -482,16 +461,10 @@ const LabServices = () => {
             </p>
             <p className="text-lg font-bold text-primary">1-800-MED-LINK</p>
             <div className="flex gap-4 mt-4">
-              <a
-                className="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant hover:text-secondary"
-                href="#"
-              >
+              <a className="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant hover:text-secondary">
                 <span className="material-symbols-outlined text-lg">mail</span>
               </a>
-              <a
-                className="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant hover:text-secondary"
-                href="#"
-              >
+              <a className="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant hover:text-secondary">
                 <span className="material-symbols-outlined text-lg">chat</span>
               </a>
             </div>

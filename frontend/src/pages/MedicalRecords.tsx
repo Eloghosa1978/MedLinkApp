@@ -1,4 +1,9 @@
+import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
 const MedicalRecords = () => {
+  const { handleLogout } = useAuth();
+
   return (
     <div>
       <div className="bg-background text-on-surface">
@@ -9,23 +14,8 @@ const MedicalRecords = () => {
                 MedLink
               </span>
               <nav className="hidden md:flex items-center gap-4 ml-6">
-                <a
-                  className="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
-                  href="#"
-                >
-                  Services
-                </a>
-                <a
-                  className="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
-                  href="#"
-                >
-                  Doctors
-                </a>
-                <a
-                  className="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
-                  href="#"
-                >
-                  About
+                <a className="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md">
+                  <Link to="/patient/doctordiscovery">Doctors</Link>
                 </a>
               </nav>
             </div>
@@ -40,12 +30,6 @@ const MedicalRecords = () => {
                   search
                 </span>
               </div>
-              <button className="text-secondary font-label-md text-label-md px-4 py-1 hover:bg-surface-container-low rounded-lg transition-all active:scale-95">
-                Sign In
-              </button>
-              <button className="bg-primary text-on-primary font-label-md text-label-md px-4 py-1 rounded-lg shadow-sm hover:opacity-90 active:scale-95 transition-all">
-                Emergency
-              </button>
             </div>
           </div>
         </header>
@@ -60,59 +44,44 @@ const MedicalRecords = () => {
               </p>
             </div>
             <nav className="flex-1 space-y-1">
-              <a
-                className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md"
-                href="#"
-              >
+              <a className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md">
                 <span className="material-symbols-outlined">dashboard</span>{" "}
-                Dashboard
+                <Link to="/patient/dashboard">Dashboard</Link>
               </a>
-              <a
-                className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md"
-                href="#"
-              >
+              <a className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md">
                 <span className="material-symbols-outlined">
                   calendar_today
                 </span>{" "}
-                Appointments
+                <Link to="/patient/appointmentdetails">Appointments</Link>
               </a>
-              <a
-                className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md"
-                href="#"
-              >
+              <a className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md">
                 <span className="material-symbols-outlined">monitoring</span>{" "}
-                Health Metrics
+                <Link to="/patient/healthmetrics">Health Metrics</Link>
               </a>
-              <a
-                className="flex items-center gap-1 bg-secondary-container text-on-secondary-container rounded-lg p-3 font-label-md text-label-md translate-x-1 shadow-sm"
-                href="#"
-              >
+              <a className="flex items-center gap-1 bg-secondary-container text-on-secondary-container rounded-lg p-3 font-label-md text-label-md translate-x-1 shadow-sm">
                 <span className="material-symbols-outlined fill-icon">
                   description
                 </span>{" "}
-                Medical Records
+                <Link to="/patient/medicalrecords">Medical Records</Link>
               </a>
-              <a
-                className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md"
-                href="#"
-              >
+              <a className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md">
                 <span className="material-symbols-outlined">settings</span>{" "}
                 Settings
               </a>
             </nav>
             <div className="mt-auto space-y-1 border-t border-outline-variant/10 pt-3">
-              <button className="w-full bg-secondary text-on-secondary font-label-md text-label-md py-3 rounded-xl mb-4 hover:shadow-lg transition-all active:scale-95">
-                Book Appointment
-              </button>
-              <a
-                className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md"
-                href="#"
-              >
+              <Link to="/patient/appointmentdetails">
+                <button className="w-full bg-secondary text-on-secondary font-label-md text-label-md py-3 rounded-xl mb-4 hover:shadow-lg transition-all active:scale-95">
+                  Book Appointment
+                </button>
+              </Link>
+
+              <a className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md">
                 <span className="material-symbols-outlined">help</span> Support
               </a>
               <a
                 className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors font-label-md text-label-md"
-                href="#"
+                onClick={handleLogout}
               >
                 <span className="material-symbols-outlined">logout</span> Logout
               </a>
@@ -574,28 +543,16 @@ const MedicalRecords = () => {
               </p>
             </div>
             <div className="flex gap-6">
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 Privacy Policy
               </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 Terms of Service
               </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 HIPAA Compliance
               </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 Contact Support
               </a>
             </div>
