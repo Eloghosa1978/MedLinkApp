@@ -1,115 +1,57 @@
 import mongoose from "mongoose";
 import { Doctor, DoctorModel } from "../models/doctorModel";
 import type { SortOrder } from "mongoose";
+import {
+  DoctorDetailsResult,
+  DoctorDiscoveryResult,
+  Pagination,
+  DiscoveryParams,
+} from "../types/doctors.types";
+import { UserModel } from "../models/authModel";
 /**
  * Params accepted for discovery (all optional)
  * - q: text search
  * - primarySpecialization
- * - specialization (comma-separated string)
+ * - Primaryspecialization (comma-separated string)
  * - practiceType
  * - consultationMode
  * - minFee, maxFee
- * - verificationStatus
  * - city, state, country
- * - sort: fee_asc | fee_desc | newest | relevance
- * - page, limit
+ * - sort: fee_asc | fee_desc | newest
+ * - p, l
  */
-
-export interface DiscoveryParams {
-  search?: string;
-  primarySpecialization?: string;
-  specialization?: string;
-  consultationMode?: "physical" | "virtual";
-  practiceType?: "hospital" | "private" | "both";
-  minFee?: number;
-  maxFee?: number;
-  verificationStatus?: "pending" | "verified" | "rejected";
-  city?: string;
-  state?: string;
-  country?: string;
-  sort?: "fee_asc" | "fee_desc" | "newest" | "relevance";
-  page?: number;
-  limit?: number;
-}
-interface DoctorDiscoveryResult {
-  id: string;
-  primarySpecialization: string;
-  yearsOfExperience?: number;
-  consultationFee?: number;
-  verificationStatus: "pending" | "verified" | "rejected";
-  practiceType: "hospital" | "private" | "both";
-  consultationModes: ("physical" | "virtual")[];
-  location?: {
-    country?: string;
-    state?: string;
-  };
-  user: {
-    id: string;
-    fullName: string;
-    profileImage?: string;
-    gender?: "male" | "female";
-  };
-  hospital: {
-    id: string;
-    name: string;
-  };
-}
-interface DoctorDetailsResult {
-  doctor: {
-    id: string;
-    primarySpecialization: string | undefined;
-    specializations: string[];
-    yearsOfExperience?: number;
-    consultationFee?: number;
-    verificationStatus: "pending" | "verified" | "rejected";
-    practiceType: "hospital" | "private" | "both";
-    consultationModes: ("physical" | "virtual")[];
-    location?: {
-      street?: string;
-      city?: string;
-      state?: string;
-      country?: string;
-    };
-    biography?: string;
-    qualifications: string[];
-    user: {
-      id: string;
-      fullName: string;
-      profileImage?: string;
-      gender?: "male" | "female";
-      phoneNumber?: string;
-      email?: string;
-    };
-    hospital: {
-      id: string;
-      name: string;
-      address?: {
-        street?: string;
-        city?: string;
-        state?: string;
-        country?: string;
-      };
-      isVerified: boolean;
-    };
-  }
-}
 
 // Helper service
 
 export const escapeRegExp = (text: string) =>
   text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // Escape special characters for regex
 
-export const buildSearch = (search?: string) => {
-  if (!search) return null;
+export const buildSearch = async (search?: string) => {
+  if (!search?.trim()) return null;
 
-  const escapedSearch = new RegExp(escapeRegExp(search), "i"); // Case-insensitive search
+  const escapedSearch = new RegExp(escapeRegExp(search.trim()), "i"); // Case-insensitive search
+
+  // Find users whose name matches the search term
+
+  const matchingUsers = await UserModel.find({
+    $or: [
+      { firstName: { $regex: escapedSearch } },
+      { lastName: { $regex: escapedSearch } },
+    ],
+  })
+    .select("_id")
+    .lean()
+    .exec();
+
+  const userIds = matchingUsers.map((user) => user._id);
   return {
     $or: [
-      { biography: { $regex: escapedSearch } },
       { qualifications: { $in: [escapedSearch] } },
-      { licenseNumber: { $regex: escapedSearch } },
-      { specialization: { $regex: escapedSearch } },
-      { name: { $regex: escapedSearch } },
+
+      { primarySpecialization: { $regex: escapedSearch } },
+      { specializations: { $regex: escapedSearch } },
+      // User name matches,
+      { userId: { $in: userIds } },
     ],
   };
 };
@@ -119,12 +61,11 @@ export const buildFilters = (
 ): Record<string, unknown> => {
   const {
     primarySpecialization,
-    specialization,
+    specializations,
     practiceType,
     consultationMode,
     minFee,
     maxFee,
-    verificationStatus,
     city,
     state,
     country,
@@ -135,8 +76,8 @@ export const buildFilters = (
   if (primarySpecialization)
     filter.primarySpecialization = primarySpecialization;
 
-  if (specialization) {
-    const list = String(specialization)
+  if (specializations) {
+    const list = String(specializations)
       .split(",")
       .map((s) => s.trim())
       .filter(Boolean);
@@ -149,7 +90,6 @@ export const buildFilters = (
   }
   if (practiceType) filter.practiceType = practiceType;
   if (consultationMode) filter.consultationModes = consultationMode;
-  if (verificationStatus) filter.verificationStatus = verificationStatus;
 
   if (minFee !== undefined || maxFee !== undefined) {
     filter.consultationFee = {} as Record<string, number>;
@@ -176,56 +116,60 @@ export const buildSort = (
       return { consultationFee: -1 };
     case "newest":
       return { createdAt: -1 };
-    case "relevance":
-      return { createdAt: -1 };
     default:
       return { createdAt: -1 };
   }
 };
 
-export const buildPagination = async (
+export const buildPagination = (
   page?: number | string,
   limit?: number | string,
 ) => {
   const p: number = Math.max(1, Number(page ?? 1));
   const l: number = Math.min(100, Math.max(1, Number(limit ?? 10)));
   const skip: number = (p - 1) * l;
-  const totalItems: number = await DoctorModel.countDocuments().exec();
-  const totalPages: number = Math.ceil(totalItems / l);
-  const hasNextPage: boolean = p < totalPages;
-  const hasPrevPage: boolean = p > 1;
-
-  return {
-    page: p,
-    limit: l,
-    skip,
-    totalItems,
-    totalPages,
-    hasNextPage,
-    hasPrevPage,
-  };
+  return { page: p, limit: l, skip };
 };
 
 // The main Service function to discover doctors based on the provided parameters
 
 export const discoverDoctors = async (
   params: DiscoveryParams,
-): Promise<{ doctors: DoctorDiscoveryResult[]; pagination: {} }> => {
-  const { search, sort, page, limit, ...filters } = params;
+): Promise<{ doctors: DoctorDiscoveryResult[]; pagination: Pagination }> => {
+  const { search, sort, p, l, ...filters } = params;
   const searchQuery = buildSearch(search);
-  const filterQuery = buildFilters(filters);
+  const filterQuery: Record<string, unknown> = {
+    ...buildFilters(filters),
+    verificationStatus: "verified",
+  };
   const sortQuery = buildSort(sort);
-  const pagination = await buildPagination(page, limit);
+  // pagination
+  const { page, limit, skip } = buildPagination(p, l);
+
   const finalQuery = searchQuery
     ? { $and: [searchQuery, filterQuery] }
     : filterQuery;
 
+  const totalDoctors = await DoctorModel.countDocuments(finalQuery).exec();
+  const totalPages = Math.ceil(totalDoctors / limit);
+
+  const hasNextPage = page < totalPages;
+  const hasPrevPage = page > 1;
+  const pagination = {
+    page,
+    limit,
+    totalDoctors,
+    totalPages,
+    hasNextPage,
+    hasPrevPage,
+  };
+
   const doctors = await DoctorModel.find(finalQuery)
-    .populate("userId", "firstName lastName profileImage, gender")
+    .populate("userId", "firstName lastName profileImage gender")
     .populate("hospitalId", "name ")
     .sort(sortQuery)
-    .skip(pagination.skip)
-    .limit(pagination.limit)
+    .skip(skip)
+    .limit(limit)
     .lean()
     .exec();
 
@@ -285,6 +229,7 @@ export const getDoctorDetails = async (
     .lean()
     .exec();
   if (!doctor) return null;
+  if (doctor.verificationStatus !== "verified") return null;
 
   const user = doctor.userId as any;
   const hospital = doctor.hospitalId as any;
@@ -301,7 +246,7 @@ export const getDoctorDetails = async (
     specializations: doctor.specializations ?? [],
     yearsOfExperience: years,
     consultationFee: doctor.consultationFee ?? undefined,
-    verificationStatus: doctor.verificationStatus,
+    verificationStatus: (doctor.verificationStatus as "verified") ?? undefined,
     practiceType: doctor.practiceType,
     consultationModes: doctor.consultationModes ?? [],
     location: {
@@ -333,5 +278,5 @@ export const getDoctorDetails = async (
       isVerified: hospital?.isVerified ?? false,
     },
   };
-  return { doctor: result };
+  return result;
 };

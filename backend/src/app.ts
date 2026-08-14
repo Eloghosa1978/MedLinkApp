@@ -4,9 +4,11 @@ import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import rateLimit from "express-rate-limit";
 import profileRoutes from "./routes/profile.routes";
-
+import doctorRoutes from "./routes/doctor.routes";
 // defining routes
 import authRoutes from "./routes/auth.routes";
+// importing the models to be used in the app
+import "./config/models";
 
 const app = express();
 
@@ -56,8 +58,10 @@ app.use("/api", globalLimiter);
 
 // use limits to specific auth routes
 app.use("/api/auth", authLimiter, authRoutes);
-// use limits to specific profile routes
+// profile-routes
 app.use("/api/profile", profileRoutes);
+// doctor-rotues
+app.use("/api/doctors", doctorRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({

@@ -1,4 +1,5 @@
-import { body, query } from "express-validator";
+import { body, param, query } from "express-validator";
+import mongoose from "mongoose";
 import { SPECIALIZATIONS } from "../constants/specializations";
 
 // Step 1: Basic professional information validation
@@ -29,7 +30,7 @@ export const doctorStep2Validator = [
     .trim()
     .notEmpty()
     .withMessage("Primary specialization is required")
-    
+
     .isIn(SPECIALIZATIONS)
     .withMessage(
       `Primary specialization must be one of: ${SPECIALIZATIONS.join(", ")}`,
@@ -201,10 +202,10 @@ export const doctorDiscoveryValidator = [
   query("state")
     .optional()
     .isString()
-  .withMessage("State must be a string")
+    .withMessage("State must be a string")
     .trim(),
 
-     query("country")
+  query("country")
     .optional()
     .isString()
     .withMessage("Country must be a string")
@@ -224,7 +225,20 @@ export const doctorDiscoveryValidator = [
 
   query("sort")
     .optional()
-    .isIn(["fee_asc", "fee_desc", "newest", "relevance"])
-    .withMessage("Sort must be one of fee_asc, fee_desc, newest, relevance"),
+    .isIn(["fee_asc", "fee_desc", "newest", ])
+    .withMessage("Sort must be one of fee_asc, fee_desc, newest"),
+
 
 ];
+
+export const doctorDetailsValidator = [
+  param("doctorId")
+    .trim()
+    .notEmpty()
+    .withMessage("Doctor Id is required")
+    .custom((value) => mongoose.Types.ObjectId.isValid(value))
+    .withMessage("Invalid doctor Id")
+
+];
+
+
