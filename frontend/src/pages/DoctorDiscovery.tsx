@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const DoctorDiscovery: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className="bg-surface font-body-md text-on-surface antialiased">
@@ -13,31 +16,14 @@ const DoctorDiscovery: React.FC = () => {
               <nav className="hidden md:flex items-center gap-4">
                 <a
                   className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                  href="#"
+                  onClick={() => navigate(-1)}
                 >
-                  Services
+                  Go back
                 </a>
-                <a
-                  className="font-label-md text-label-md text-secondary font-bold border-b-2 border-secondary pb-1"
-                  href="#"
-                >
+                <a className="font-label-md text-label-md text-secondary font-bold border-b-2 border-secondary pb-1">
                   Doctors
                 </a>
-                <a
-                  className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                  href="#"
-                >
-                  About
-                </a>
               </nav>
-            </div>
-            <div className="flex items-center gap-3">
-              <button className="px-4 py-1 font-label-md text-label-md text-secondary hover:bg-surface-container-low rounded-lg transition-all active:scale-95">
-                Sign In
-              </button>
-              <button className="px-4 py-1 font-label-md text-label-md bg-secondary text-white rounded-lg shadow-sm hover:opacity-90 transition-all active:scale-95">
-                Emergency
-              </button>
             </div>
           </div>
         </header>
@@ -452,28 +438,16 @@ const DoctorDiscovery: React.FC = () => {
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 Privacy Policy
               </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 Terms of Service
               </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 HIPAA Compliance
               </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
+              <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors">
                 Contact Support
               </a>
             </div>

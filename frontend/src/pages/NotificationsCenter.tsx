@@ -32,7 +32,7 @@ const NotificationsCenter = () => {
                 search
               </span>
               <input
-                className="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-sm w-64 focus:ring-2 focus:ring-secondary/20"
+                className="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-sm w-64 focus:ring-2 focus:ring-secondary/20 outline-none"
                 placeholder="Search records..."
                 type="text"
               />
