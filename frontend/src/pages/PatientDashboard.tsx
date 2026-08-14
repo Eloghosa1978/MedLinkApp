@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const PatientDashboard = () => {
-  const { handleLogout } = useAuth();
+  const { handleLogout, mongoUser } = useAuth();
 
   return (
     <div className="bg-surface text-on-surface font-body-md min-h-screen flex overflow-hidden">
@@ -227,7 +227,7 @@ const PatientDashboard = () => {
         <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
             <h2 className="font-headline-lg text-headline-lg text-on-surface mb-1">
-              Welcome back, Sarah
+              Welcome back, {mongoUser?.firstName} {mongoUser?.lastName}
             </h2>
           </div>
           <div className="flex items-center gap-3">
@@ -470,7 +470,7 @@ const PatientDashboard = () => {
             className="material-symbols-outlined text-2xl"
             style={{ fontVariationSettings: "'FILL' 1" }}
           >
-            chat
+            <Link to="/patient/messagingpage">chat</Link>
           </span>
         </button>
         <button
@@ -481,7 +481,7 @@ const PatientDashboard = () => {
             className="material-symbols-outlined text-2xl"
             style={{ fontVariationSettings: "'FILL' 1" }}
           >
-            add
+            <Link to="/patient/appointmentdetails">add</Link>
           </span>
         </button>
       </div>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const SymptomsIntake = () => {
   return (
     <div className="bg-background text-on-background min-h-screen">
@@ -8,23 +10,14 @@ const SymptomsIntake = () => {
           </span>
         </div>
         <nav className="hidden md:flex items-center gap-6">
-          <a
-            className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors px-4 py-2 rounded-lg"
-            href="#"
-          >
-            Dashboard
+          <a className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors px-4 py-2 rounded-lg">
+            <Link to="/patient/dashboard">Dashboard</Link>
           </a>
-          <a
-            className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors px-4 py-2 rounded-lg"
-            href="#"
-          >
-            Symptom Triage
+          <a className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors px-4 py-2 rounded-lg">
+            <Link to="/patient/symptomsintake">Symptoms Triage</Link>
           </a>
-          <a
-            className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors px-4 py-2 rounded-lg"
-            href="#"
-          >
-            Appointments
+          <a className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors px-4 py-2 rounded-lg">
+            <Link to="/patient/appointmentdetails">Appointment</Link>
           </a>
         </nav>
         <div className="flex items-center gap-4">
@@ -50,42 +43,27 @@ const SymptomsIntake = () => {
           </p>
         </div>
         <div className="space-y-1 flex-grow">
-          <a
-            className="flex items-center gap-4 p-4 font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg"
-            href="#"
-          >
+          <a className="flex items-center gap-4 p-4 font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg">
             <span className="material-symbols-outlined">history_edu</span>{" "}
-            Medical History
+            <Link to="/patient/medicalrecords">Medical Records</Link>
           </a>
-          <a
-            className="flex items-center gap-4 p-4 font-label-lg text-label-lg bg-secondary-container text-on-secondary-container font-semibold rounded-lg scale-[0.98] transition-transform"
-            href="#"
-          >
+          <a className="flex items-center gap-4 p-4 font-label-lg text-label-lg bg-secondary-container text-on-secondary-container font-semibold rounded-lg scale-[0.98] transition-transform">
             <span className="material-symbols-outlined">medical_services</span>{" "}
-            Symptom Triage
+            <Link to="/patient/symptomsintake">Symptom Triage</Link>
           </a>
-          <a
-            className="flex items-center gap-4 p-4 font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg"
-            href="#"
-          >
-            <span className="material-symbols-outlined">description</span> Lab
-            Reports
+          <a className="flex items-center gap-4 p-4 font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg">
+            <span className="material-symbols-outlined">description</span>
+            <Link to="/patient/labservices">Lab Services</Link>
           </a>
-          <a
-            className="flex items-center gap-4 p-4 font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg"
-            href="#"
-          >
+          <a className="flex items-center gap-4 p-4 font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg">
             <span className="material-symbols-outlined">
               account_balance_wallet
             </span>{" "}
-            Insurance &amp; Billing
+            <Link to="/patient/billing">Insurance &amp; Billing</Link>
           </a>
         </div>
         <div className="mt-auto space-y-1">
-          <a
-            className="flex items-center gap-4 p-4 font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg"
-            href="#"
-          >
+          <a className="flex items-center gap-4 p-4 font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg">
             <span className="material-symbols-outlined">settings</span> Settings
           </a>
           <button className="w-full mt-4 bg-primary text-on-primary py-3 px-6 rounded-lg font-label-lg text-label-lg hover:opacity-90 transition-opacity">
@@ -318,10 +296,7 @@ const SymptomsIntake = () => {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-8 border-t border-outline-variant">
-              <a
-                className="group flex items-center gap-4 p-4 hover:bg-surface-container-low rounded-xl transition-all"
-                href="#"
-              >
+              <a className="group flex items-center gap-4 p-4 hover:bg-surface-container-low rounded-xl transition-all">
                 <div className="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined">videocam</span>
                 </div>
@@ -334,10 +309,7 @@ const SymptomsIntake = () => {
                   </p>
                 </div>
               </a>
-              <a
-                className="group flex items-center gap-4 p-4 hover:bg-surface-container-low rounded-xl transition-all"
-                href="#"
-              >
+              <a className="group flex items-center gap-4 p-4 hover:bg-surface-container-low rounded-xl transition-all">
                 <div className="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined">forum</span>
                 </div>

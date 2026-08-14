@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../../firebaseConfig";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -351,12 +351,14 @@ const Register = () => {
               <div className="mt-6 text-center">
                 <p className="font-body-md text-body-md text-on-surface-variant">
                   Already have an account?
-                  <a
-                    className="font-label-lg text-label-lg text-primary hover:underline"
-                    href="#"
-                  >
-                    Log in here
-                  </a>
+                  <Link to="/login">
+                    <a
+                      className="font-label-lg text-label-lg text-primary hover:underline"
+                      href="#"
+                    >
+                      Log in here
+                    </a>
+                  </Link>
                 </p>
               </div>
             </div>

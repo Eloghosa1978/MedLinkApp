@@ -36,8 +36,8 @@ function App() {
         <Route path="signup-details" element={<Register />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="aboutpage" element={<AboutPage />} />
-        <Route path="servicespage" element={<ServicesPage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="services" element={<ServicesPage />} />
         <Route path="hospitaldirectory" element={<HospitalDirectory />} />
         <Route path="emergencyservices" element={<EmergencyServices />} />
         <Route path="medicalonboarding" element={<MedicalOnboarding />} />
