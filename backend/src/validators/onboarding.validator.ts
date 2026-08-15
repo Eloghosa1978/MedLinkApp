@@ -29,11 +29,13 @@ export const applyOnboardingValidator = (
 
   // Get current step from user object or default 1
   const currentStep = user.onboardingStep ?? 0;
+  const evaluatedStep = currentStep === 0 ? 1 : currentStep;
+
 
   let validators: Array<(req: Request, res: Response, next: NextFunction) => void> = [];
 
   if (user.role === "patient") {
-    switch (currentStep) {
+    switch (evaluatedStep) {
       case 1:
         validators = patientStep1Validator;
         break;

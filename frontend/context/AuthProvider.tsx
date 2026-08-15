@@ -65,6 +65,29 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     return null;
   };
 
+  const onBoarding = async (onboardingData: object) => {
+    if (!auth.currentUser) return null;
+    const activeUser = auth.currentUser;
+    const tokenString = await activeUser?.getIdToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${tokenString}`,
+      },
+    };
+
+    const response = await axios.post(
+      "http://localhost:5000/api/profile/onboarding",
+      onboardingData,
+      config,
+    );
+    setMongoUser((prev) =>
+      prev
+        ? { ...prev, onboardingStep: response.data.data.onboardingStep }
+        : prev,
+    );
+    return response.data;
+  };
+
   useEffect(() => {
     const unsuscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
@@ -96,6 +119,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           loading,
           syncUserWithBackend,
           handleLogout,
+          onBoarding,
         }}
       >
         {children}

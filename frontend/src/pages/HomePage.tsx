@@ -67,15 +67,19 @@ const HomePage: React.FC = () => {
                   human-centric approach to digital medicine.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <button className="bg-secondary text-on-secondary px-6 h-[56px] rounded-xl font-label-md text-body-md shadow-lg shadow-secondary/20 hover:bg-on-secondary-fixed-variant transition-all active:scale-95">
-                    Get Started
-                  </button>
-                  <button className="bg-surface border border-outline-variant text-on-surface px-6 h-[56px] rounded-xl font-label-md text-body-md hover:bg-surface-container-low transition-all active:scale-95 flex items-center gap-1">
-                    Browse Doctors
-                    <span className="material-symbols-outlined">
-                      arrow_forward
-                    </span>
-                  </button>
+                  <Link to="/signup-details">
+                    <button className="bg-secondary text-on-secondary px-6 h-[56px] rounded-xl font-label-md text-body-md shadow-lg shadow-secondary/20 hover:bg-on-secondary-fixed-variant transition-all active:scale-95">
+                      Get Started
+                    </button>
+                  </Link>
+                  <Link to="/patient/doctordiscovery">
+                    <button className="bg-surface border border-outline-variant text-on-surface px-6 h-[56px] rounded-xl font-label-md text-body-md hover:bg-surface-container-low transition-all active:scale-95 flex items-center gap-1">
+                      Browse Doctors
+                      <span className="material-symbols-outlined">
+                        arrow_forward
+                      </span>
+                    </button>
+                  </Link>
                 </div>
               </div>
               <div className="lg:col-span-6 relative">

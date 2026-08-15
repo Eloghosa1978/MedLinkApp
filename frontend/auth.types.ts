@@ -25,6 +25,12 @@ interface AuthContextType {
   loading: boolean;
   syncUserWithBackend: (profileData?: OnboardingPayload, explicitUser?: FirebaseUser) => Promise<MongoUser | null>
   handleLogout: () => Promise<void>
+  onBoarding: (onboardingData: object) => Promise<{
+  success: boolean;
+  code: string;
+  message: string;
+  data: { onboardingStep: number };
+} | null>
 }
 
 interface ProtectedRouteProps {
