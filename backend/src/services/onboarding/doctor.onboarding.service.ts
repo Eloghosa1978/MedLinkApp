@@ -7,7 +7,6 @@ import {
 
 // Define the data structure for step one of doctor onboarding
 type DoctorStepOneData = {
-  phoneNumber: string;
   LicenseNumber: string;
   licensedSince: Date;
   PracticeType: "hospital" | "private" | "both";
@@ -29,7 +28,7 @@ type DoctorStepThreeData = {
 };
 type DoctorStepFourData = {
   consultationFee?: number;
-  conultationModes?: "patient" | "virtual";
+  consultationModes?: "patient" | "virtual";
 };
 
 const handleDoctorStepOne = async (
