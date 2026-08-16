@@ -10,6 +10,9 @@ import authRoutes from "./routes/auth.routes";
 // importing the models to be used in the app
 import "./config/models";
 
+import { globalErrorHandler } from "./middleware/error.middleware";
+
+import availabilityRoutes from "./routes/availability.routes";
 const app = express();
 
 app.use(helmet());
@@ -63,11 +66,15 @@ app.use("/api/profile", profileRoutes);
 // doctor-rotues
 app.use("/api/doctors", doctorRoutes);
 
+app.use("/api/availability", availabilityRoutes);
+
 app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
     message: "MedLink API is running",
   });
 });
+
+app.use(globalErrorHandler);
 
 export default app;

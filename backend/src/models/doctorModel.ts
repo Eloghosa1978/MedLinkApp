@@ -72,6 +72,7 @@ const doctorSchema = new Schema(
     consultationFee: {
       type: Number,
       min: 0,
+      default: 0,
     },
     verificationStatus: {
       type: String,

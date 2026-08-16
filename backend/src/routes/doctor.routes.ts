@@ -22,6 +22,7 @@ router.get(
   authMiddleware,
   loadUserMiddleware,
   doctorDetailsValidator,
+  validateRequest,
   doctorDetailsController
 )
 
