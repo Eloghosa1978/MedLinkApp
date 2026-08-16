@@ -86,4 +86,4 @@ const doctorSchema = new Schema(
 export type Doctor = InferSchemaType<typeof doctorSchema>;
 export type DoctorDocument = HydratedDocument<Doctor>;
 
-export const DoctorModel = model<DoctorDocument>("Doctor", doctorSchema);
+export const DoctorModel = model<Doctor>("Doctor", doctorSchema);

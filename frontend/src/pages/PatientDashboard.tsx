@@ -1,531 +1,489 @@
-import "react"
+import "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const PatientDashboard = () => {
+  const { handleLogout, mongoUser } = useAuth();
+
   return (
-    <div>
-      <div className="bg-surface text-on-surface">
-        <aside className="fixed left-0 top-0 h-screen flex flex-col p-3 z-40 h-full w-64 border-r border-outline-variant bg-surface-container-lowest shadow-sm">
-          <div className="mb-6 px-3 pt-3">
+    <div className="bg-surface text-on-surface font-body-md min-h-screen flex overflow-hidden">
+      <nav className="hidden md:flex bg-surface-container-lowest flex-col h-screen w-64 p-4 gap-2 border-r border-outline-variant shrink-0 fixed left-0 top-0">
+        <div className="flex items-center gap-3 mb-lg px-base">
+          <span
+            className="material-symbols-outlined text-primary"
+            data-icon="local_hospital"
+            style={{ fontVariationSettings: "'FILL' 1", fontSize: "32px" }}
+          >
+            local_hospital
+          </span>
+          <div>
             <h1 className="font-headline-md text-headline-md font-bold text-primary">
               MedLink
             </h1>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            <p className="font-label-md text-label-md text-on-surface-variant">
               Patient Portal
             </p>
           </div>
-          <nav className="flex-1 space-y-1">
-            <a
-              className="flex items-center gap-1 bg-secondary-container text-on-secondary-container rounded-lg p-3 translate-x-1 transition-all duration-200"
-              href="#"
-            >
+        </div>
+        <div className="flex-1 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
+          <Link to="/patient/dashboard">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-primary font-bold bg-secondary-container rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
               <span className="material-symbols-outlined" data-icon="dashboard">
                 dashboard
               </span>
-              <span className="font-label-md text-label-md">Dashboard</span>
+              <span className="font-label-lg text-label-lg">Dashboard</span>
             </a>
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
+          </Link>
+          <Link to="/patient/doctordiscovery">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span
+                className="material-symbols-outlined"
+                data-icon="person_search"
+              >
+                person_search
+              </span>
+              <span className="font-label-lg text-label-lg">
+                Doctor Discovery
+              </span>
+            </a>
+          </Link>
+          <Link to="/patient/aisymptomschecker">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span
+                className="material-symbols-outlined"
+                data-icon="medical_services"
+              >
+                medical_services
+              </span>
+              <span className="font-label-lg text-label-lg">
+                AI Symptom Checker
+              </span>
+            </a>
+          </Link>
+          <Link to="/patient/findpharmacy">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span
+                className="material-symbols-outlined"
+                data-icon="local_pharmacy"
+              >
+                local_pharmacy
+              </span>
+              <span className="font-label-lg text-label-lg">Find Pharmacy</span>
+            </a>
+          </Link>
+          <Link to="/patient/billing">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span className="material-symbols-outlined" data-icon="payments">
+                payments
+              </span>
+              <span className="font-label-lg text-label-lg">Billing</span>
+            </a>
+          </Link>
+          <Link to="/patient/symptomsintake">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span
+                className="material-symbols-outlined"
+                data-icon="assignment"
+              >
+                assignment
+              </span>
+              <span className="font-label-lg text-label-lg">
+                Symptom Intake
+              </span>
+            </a>
+          </Link>
+          <Link to="/patient/appointmentdetails">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
               <span
                 className="material-symbols-outlined"
                 data-icon="calendar_today"
               >
                 calendar_today
               </span>
-              <span className="font-label-md text-label-md">Appointments</span>
+              <span className="font-label-lg text-label-lg">
+                Appointment Details
+              </span>
             </a>
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
+          </Link>
+          <Link to="/patient/telemedicineroom">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
               <span
                 className="material-symbols-outlined"
-                data-icon="monitoring"
+                data-icon="video_chat"
               >
-                monitoring
+                video_chat
               </span>
-              <span className="font-label-md text-label-md">
-                Health Metrics
+              <span className="font-label-lg text-label-lg">
+                Telemedicine Room
               </span>
             </a>
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
+          </Link>
+          <Link to="/patient/messaging">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span className="material-symbols-outlined" data-icon="forum">
+                forum
+              </span>
+              <span className="font-label-lg text-label-lg">Messaging App</span>
+            </a>
+          </Link>
+          <Link to="/patient/digitalprescription">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span
+                className="material-symbols-outlined"
+                data-icon="prescriptions"
+              >
+                prescriptions
+              </span>
+              <span className="font-label-lg text-label-lg">
+                Digital Prescription
+              </span>
+            </a>
+          </Link>
+          <Link to="/patient/medicalreports">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
               <span
                 className="material-symbols-outlined"
                 data-icon="description"
               >
                 description
               </span>
-              <span className="font-label-md text-label-md">
+              <span className="font-label-lg text-label-lg">
+                Medical Reports
+              </span>
+            </a>
+          </Link>
+          <Link to="/patient/medicalrecords">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span
+                className="material-symbols-outlined"
+                data-icon="folder_shared"
+              >
+                folder_shared
+              </span>
+              <span className="font-label-lg text-label-lg">
                 Medical Records
               </span>
             </a>
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
-              <span className="material-symbols-outlined" data-icon="settings">
-                settings
+          </Link>
+          <Link to="/patient/notifications">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span
+                className="material-symbols-outlined"
+                data-icon="notifications"
+              >
+                notifications
               </span>
-              <span className="font-label-md text-label-md">Settings</span>
+              <span className="font-label-lg text-label-lg">Notifications</span>
             </a>
-          </nav>
-          <div className="mt-auto space-y-1 pt-4 border-t border-outline-variant/30">
-            <button className="w-full bg-secondary text-on-secondary rounded-lg py-3 font-label-md text-label-md hover:opacity-90 transition-opacity mb-3">
-              Book Appointment
-            </button>
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
+          </Link>
+          <Link to="/patient/labservices">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span className="material-symbols-outlined" data-icon="biotech">
+                biotech
+              </span>
+              <span className="font-label-lg text-label-lg">Lab Services</span>
+            </a>
+          </Link>
+          <Link to="/patient/healthmetrics">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
+              <span
+                className="material-symbols-outlined"
+                data-icon="monitoring"
+              >
+                monitoring
+              </span>
+              <span className="font-label-lg text-label-lg">
+                Health Metrics
+              </span>
+            </a>
+          </Link>
+        </div>
+        <div className="mt-auto pt-4 border-t border-outline-variant space-y-4">
+          <button className="w-full bg-primary text-on-primary font-label-lg text-label-lg py-3 px-4 rounded-lg hover:bg-surface-tint transition-colors">
+            Book Appointment
+          </button>
+          <div className="space-y-1">
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
               <span className="material-symbols-outlined" data-icon="help">
                 help
               </span>
-              <span className="font-label-md text-label-md">Support</span>
+              <span className="font-label-lg text-label-lg">Support</span>
             </a>
-            <a
-              className="flex items-center gap-1 text-on-surface-variant p-3 hover:bg-surface-container rounded-lg transition-colors"
-              href="#"
-            >
+            <a className="flex items-center gap-3 px-4 py-3 w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200 scale-95 active:opacity-80">
               <span className="material-symbols-outlined" data-icon="logout">
                 logout
               </span>
-              <span className="font-label-md text-label-md">Logout</span>
+              <span
+                className="font-label-lg text-label-lg"
+                onClick={handleLogout}
+              >
+                Logout
+              </span>
             </a>
           </div>
-        </aside>
-
-        <main className="ml-64 min-h-screen p-10 bg-surface max-w-[1400px]">
-          <header className="flex justify-between items-center mb-8">
-            <div>
-              <h2 className="font-headline-lg text-headline-lg text-primary">
-                Welcome back, Sarah Johnson
-              </h2>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                Wednesday, October 23, 2024 • You have 2 notifications
-              </p>
+        </div>
+      </nav>
+      <main className="flex-1 flex flex-col h-screen overflow-y-auto bg-surface md:ml-64 px-4 md:px-margin-desktop py-6 md:py-xl">
+        <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div>
+            <h2 className="font-headline-lg text-headline-lg text-on-surface mb-1">
+              Welcome back, {mongoUser?.firstName} {mongoUser?.lastName}
+            </h2>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant shadow-sm flex-shrink-0">
+              <img
+                alt="Sarah Johnson Profile"
+                className="w-full h-full object-cover"
+                data-alt="A professional headshot of a middle-aged woman with short brown hair, wearing a light blue blouse, set against a bright, modern, minimalist medical office background. Soft, even lighting, high-key medical corporate aesthetic."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkRii5pb_BZp56MSEtCydFtYKbLr-ETJOYSXRqXV5ZBUSbbcDEX-VBRKz-pU1UOYmc5llFibSsnigpyEvDPS7Vhms8Hzbg50Z7CYARxc_h84DZz1JePjtZsigfWtw9UfRuA_6Umi4ip4laMdKjwRqD5FiJyzQmzDhMkp-B9Zujc7DGsT5poyFKf96f4HPtOmJzDyIzSmFbH99HArVVPMVln0QQPD_IPP7l_nFipGD3KSDBoM38NPKNbA"
+              />
             </div>
-            <div className="flex items-center gap-4">
-              <div className="text-right hidden md:block">
-                <p className="font-label-md text-label-md text-on-surface">
-                  Sarah Johnson
-                </p>
-                <p className="font-body-sm text-body-sm text-on-surface-variant">
-                  Patient ID: #ML-8821
-                </p>
-              </div>
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-secondary/20 p-0.5">
-                <img
-                  className="w-full h-full object-cover rounded-full"
-                  data-alt="A professional headshot of a middle-aged woman with a friendly expression, set against a clean, minimalist medical office background. The lighting is soft and bright, emphasizing a calm and trustworthy atmosphere. She is wearing a simple blue blouse that complements the clinical yet empathetic corporate UI style of the MedLink brand."
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNU4WRcgIFg6-oX8pDY8L7pZiKrer9kApYjrclFSZf5GqqSHAfN1bsA59Wr6WWiVd9hSbHg8kgYJlV7i1QFhzomq0_Izube6ot3mK53dvVHbsLUHPudIEdjFevGh_oK5heCT0TMRrZ3ECkluo1h7NLgk8yhEZd6HFzUL3ZnZxmfGmd11gvOpGrHGYrxBGteh9ZaOnVaRJBSvNnRD3XzLRhTycRMKtT7tgmRhZX4wpdBQMItpkRUW1BJ9nBN-F-73dIHoLlVIhGDTTZ"
-                />
-              </div>
-            </div>
-          </header>
-
-          <div className="grid grid-cols-12 gap-6">
-            <section className="col-span-12 lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="metric-card bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/20 shadow-sm">
+          </div>
+        </header>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <div className="md:col-span-8 flex flex-col gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm relative overflow-hidden group">
                 <div className="flex justify-between items-start mb-3">
+                  <span className="font-label-lg text-label-lg text-on-surface-variant">
+                    Heart Rate
+                  </span>
                   <span
-                    className="material-symbols-outlined text-secondary"
-                    data-icon="favorite"
+                    className="material-symbols-outlined text-error/80"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
                   >
                     favorite
                   </span>
-                  <span className="px-1 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-md text-[10px]">
-                    NORMAL
-                  </span>
                 </div>
-                <p className="font-label-md text-label-md text-on-surface-variant">
-                  Heart Rate
-                </p>
-                <div className="flex items-baseline gap-1 my-1">
-                  <span className="font-display-lg text-display-lg text-primary">
+                <div className="flex items-baseline gap-1">
+                  <span className="font-headline-lg text-headline-lg text-on-surface">
                     72
                   </span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">
+                  <span className="font-label-md text-label-md text-on-surface-variant">
                     bpm
                   </span>
                 </div>
-                <div className="h-16 w-full opacity-60">
-                  <div className="w-full h-full bg-gradient-to-r from-transparent via-on-tertiary-container/20 to-transparent rounded-lg flex items-end px-1 gap-1">
-                    <div className="w-full bg-on-tertiary-container/40 h-[40%] rounded-t-sm"></div>
-                    <div className="w-full bg-on-tertiary-container/40 h-[60%] rounded-t-sm"></div>
-                    <div className="w-full bg-on-tertiary-container/40 h-[55%] rounded-t-sm"></div>
-                    <div className="w-full bg-on-tertiary-container/40 h-[80%] rounded-t-sm"></div>
-                    <div className="w-full bg-on-tertiary-container/40 h-[70%] rounded-t-sm"></div>
-                  </div>
-                </div>
+                <div className="absolute bottom-0 left-0 right-0 h-1/3 opacity-20 bg-gradient-to-t from-error/30 to-transparent"></div>
               </div>
-
-              <div className="metric-card bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/20 shadow-sm">
+              <div className="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm relative overflow-hidden">
                 <div className="flex justify-between items-start mb-3">
+                  <span className="font-label-lg text-label-lg text-on-surface-variant">
+                    Blood Pressure
+                  </span>
                   <span
-                    className="material-symbols-outlined text-secondary"
-                    data-icon="blood_pressure"
+                    className="material-symbols-outlined text-primary/80"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
                   >
                     blood_pressure
                   </span>
-                  <span className="px-1 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-md text-[10px]">
-                    NORMAL
-                  </span>
                 </div>
-                <p className="font-label-md text-label-md text-on-surface-variant">
-                  Blood Pressure
-                </p>
-                <div className="flex items-baseline gap-1 my-1">
-                  <span className="font-display-lg text-display-lg text-primary">
+                <div className="flex items-baseline gap-1">
+                  <span className="font-headline-lg text-headline-lg text-on-surface">
                     118/76
                   </span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">
+                  <span className="font-label-md text-label-md text-on-surface-variant">
                     mmHg
                   </span>
                 </div>
-                <div className="h-16 w-full opacity-60">
-                  <div className="w-full h-full bg-gradient-to-r from-transparent via-on-tertiary-container/20 to-transparent rounded-lg flex items-end px-1 gap-1">
-                    <div className="w-full bg-on-tertiary-container/40 h-[50%] rounded-t-sm"></div>
-                    <div className="w-full bg-on-tertiary-container/40 h-[45%] rounded-t-sm"></div>
-                    <div className="w-full bg-on-tertiary-container/40 h-[48%] rounded-t-sm"></div>
-                    <div className="w-full bg-on-tertiary-container/40 h-[52%] rounded-t-sm"></div>
-                    <div className="w-full bg-on-tertiary-container/40 h-[50%] rounded-t-sm"></div>
-                  </div>
-                </div>
+                <div className="absolute bottom-0 left-0 right-0 h-1/3 opacity-20 bg-gradient-to-t from-primary/30 to-transparent"></div>
               </div>
-
-              <div className="metric-card bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/20 shadow-sm">
+              <div className="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm relative overflow-hidden">
                 <div className="flex justify-between items-start mb-3">
-                  <span
-                    className="material-symbols-outlined text-secondary"
-                    data-icon="weight"
-                  >
-                    weight
+                  <span className="font-label-lg text-label-lg text-on-surface-variant">
+                    Weight History
                   </span>
-                  <span className="px-1 py-1 rounded-full bg-secondary-container/10 text-secondary font-label-md text-[10px]">
-                    -2.4 lbs
+                  <span
+                    className="material-symbols-outlined text-tertiary/80"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                  >
+                    monitor_weight
                   </span>
                 </div>
-                <p className="font-label-md text-label-md text-on-surface-variant">
-                  Weight History
-                </p>
-                <div className="flex items-baseline gap-1 my-1">
-                  <span className="font-display-lg text-display-lg text-primary">
+                <div className="flex items-baseline gap-1">
+                  <span className="font-headline-lg text-headline-lg text-on-surface">
                     164.2
                   </span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">
+                  <span className="font-label-md text-label-md text-on-surface-variant">
                     lbs
                   </span>
                 </div>
-                <div className="h-16 w-full opacity-60">
-                  <div className="w-full h-full bg-gradient-to-r from-transparent via-on-tertiary-container/20 to-transparent rounded-lg flex items-end px-1 gap-1">
-                    <div className="w-full bg-secondary/40 h-[90%] rounded-t-sm"></div>
-                    <div className="w-full bg-secondary/40 h-[85%] rounded-t-sm"></div>
-                    <div className="w-full bg-secondary/40 h-[82%] rounded-t-sm"></div>
-                    <div className="w-full bg-secondary/40 h-[80%] rounded-t-sm"></div>
-                    <div className="w-full bg-secondary/40 h-[78%] rounded-t-sm"></div>
-                  </div>
-                </div>
+                <div className="absolute bottom-0 left-0 right-0 h-1/3 opacity-20 bg-gradient-to-t from-tertiary/30 to-transparent"></div>
               </div>
-            </section>
-
-            <section className="col-span-12 lg:col-span-4 bg-primary-container text-on-primary-container p-6 rounded-xl flex flex-col justify-between shadow-xl">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-label-md text-label-md text-on-primary-container opacity-80 uppercase tracking-widest">
-                    Next Appointment
-                  </span>
-                  <span
-                    className="material-symbols-outlined"
-                    data-icon="video_call"
-                  >
-                    video_call
-                  </span>
-                </div>
-                <div className="flex gap-4 items-center mb-6">
-                  <div className="w-16 h-16 rounded-xl overflow-hidden bg-surface-variant">
-                    <img
-                      className="w-full h-full object-cover"
-                      data-alt="A sharp, clinical portrait of a male doctor in a white coat with a stethoscope around his neck. The image is set against a blurred medical background with a cool blue color palette to maintain the corporate medical aesthetic. He has a professional and reassuring demeanor, perfectly aligning with the MedLink identity."
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYYvs3tRaUIWEGaVdwP4T4yoikRhW28R4ixDu6XdhgYqxrpj-G7b8V90T8j4a59MVLrrlfVLd3gBpQXA2fRkoliKa9PoQEQsMrKyGH1k2mxQwFdixTuYpGHbytTxtDSrwx0uxrJAN6r56yk3YygsSxYDaJ_8pi7U7YHJXxxQyD9Yc3UOxN-uIWUMogrs-OcMjpZ26vZjFo4Fm7Qqri-Vt3AK6fvYqzupepjgVwU3645lO9vWigekeLz50CO12JtZ_HxqnQaUt0Wtf3"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="font-headline-md text-headline-md text-white">
-                      Dr. Aris Thorne
-                    </h3>
-                    <p className="font-body-sm text-body-sm opacity-80">
-                      Cardiology Specialist
-                    </p>
-                  </div>
-                </div>
-                <div className="bg-white/10 rounded-lg p-3 flex items-center gap-4 mb-8">
-                  <div className="flex flex-col border-r border-white/20 pr-4">
-                    <span className="font-label-md text-label-md opacity-60 uppercase text-[10px]">
-                      Date
-                    </span>
-                    <span className="font-body-md text-body-md text-white">
-                      Oct 24, 2024
-                    </span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-label-md text-label-md opacity-60 uppercase text-[10px]">
-                      Time
-                    </span>
-                    <span className="font-body-md text-body-md text-white">
-                      10:30 AM (EST)
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <button className="w-full bg-secondary text-white py-4 rounded-lg font-label-md text-label-md flex items-center justify-center gap-1 hover:bg-secondary/90 transition-all active:scale-[0.98]">
-                <span
-                  className="material-symbols-outlined"
-                  data-icon="play_circle"
-                >
-                  play_circle
-                </span>
-                Join Video Consultation
-              </button>
-            </section>
-
-            <section className="col-span-12 lg:col-span-6 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 shadow-sm">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="font-headline-md text-headline-md text-primary">
-                  Daily Medications
-                </h3>
-                <button className="text-secondary font-label-md text-label-md hover:underline">
-                  View All
-                </button>
-              </div>
-              <div className="space-y-3">
-                <div className="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors border border-transparent hover:border-outline-variant/30">
-                  <input
-                    className="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary"
-                    type="checkbox"
-                  />
-                  <div className="flex-1">
-                    <p className="font-body-md text-body-md font-semibold text-on-surface">
-                      Lisinopril (10mg)
-                    </p>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant">
-                      Take 1 tablet after breakfast
-                    </p>
-                  </div>
-                  <span className="font-label-md text-label-md text-on-surface-variant bg-surface-container px-2 py-1 rounded">
-                    8:00 AM
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors border border-transparent hover:border-outline-variant/30">
-                  <input
-                    defaultChecked
-                    className="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary opacity-50"
-                    type="checkbox"
-                  />
-                  <div className="flex-1 opacity-50">
-                    <p className="font-body-md text-body-md font-semibold text-on-surface line-through">
-                      Multivitamin
-                    </p>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant">
-                      Take 1 capsule with water
-                    </p>
-                  </div>
-                  <span className="font-label-md text-label-md text-on-tertiary-container bg-tertiary-fixed-dim/20 px-2 py-1 rounded flex items-center gap-1">
-                    <span
-                      className="material-symbols-outlined text-[16px]"
-                      data-icon="check_circle"
-                    >
-                      check_circle
-                    </span>
-                    Done
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors border border-transparent hover:border-outline-variant/30">
-                  <input
-                    className="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary"
-                    type="checkbox"
-                  />
-                  <div className="flex-1">
-                    <p className="font-body-md text-body-md font-semibold text-on-surface">
-                      Atorvastatin (20mg)
-                    </p>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant">
-                      Take 1 tablet before bed
-                    </p>
-                  </div>
-                  <span className="font-label-md text-label-md text-on-surface-variant bg-surface-container px-2 py-1 rounded">
-                    10:00 PM
-                  </span>
-                </div>
-              </div>
-            </section>
-
-            <section className="col-span-12 lg:col-span-6 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 shadow-sm">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="font-headline-md text-headline-md text-primary">
+            </div>
+            <div className="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6">
+              <div className="flex justify-between items-center mb-4 border-b border-outline-variant/30 pb-3">
+                <h3 className="font-headline-md text-headline-md text-on-surface">
                   Recent Lab Results
                 </h3>
-                <button className="text-secondary font-label-md text-label-md hover:underline">
-                  Full History
-                </button>
+                <a className="font-label-lg text-label-lg text-primary hover:underline">
+                  View All
+                </a>
               </div>
-              <div className="space-y-4">
-                <div className="group flex items-center justify-between p-4 bg-surface-container-low/50 rounded-xl hover:bg-surface-container-low transition-all">
+              <ul className="flex flex-col gap-3">
+                <li className="flex items-center justify-between p-3 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer border border-transparent hover:border-outline-variant/50">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary">
                       <span
                         className="material-symbols-outlined"
-                        data-icon="biotech"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
                       >
                         biotech
                       </span>
                     </div>
                     <div>
-                      <p className="font-body-md text-body-md font-semibold">
+                      <p className="font-label-lg text-label-lg text-on-surface">
                         Complete Blood Count (CBC)
                       </p>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        Processed: Oct 18, 2024
+                      <p className="font-label-md text-label-md text-on-surface-variant">
+                        Oct 15, 2024 • Quest Diagnostics
                       </p>
                     </div>
                   </div>
-                  <a
-                    className="flex items-center gap-1 font-label-md text-label-md text-secondary group-hover:bg-secondary group-hover:text-white px-3 py-1.5 rounded-lg transition-all"
-                    href="#"
-                  >
-                    <span
-                      className="material-symbols-outlined text-[18px]"
-                      data-icon="download"
-                    >
-                      download
-                    </span>
-                    PDF
-                  </a>
-                </div>
-
-                <div className="group flex items-center justify-between p-4 bg-surface-container-low/50 rounded-xl hover:bg-surface-container-low transition-all">
+                  <span className="bg-primary-container text-on-primary-container font-label-md px-3 py-1 rounded-full">
+                    Normal
+                  </span>
+                </li>
+                <li className="flex items-center justify-between p-3 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer border border-transparent hover:border-outline-variant/50">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary">
                       <span
                         className="material-symbols-outlined"
-                        data-icon="water_drop"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
                       >
-                        water_drop
+                        science
                       </span>
                     </div>
                     <div>
-                      <p className="font-body-md text-body-md font-semibold">
+                      <p className="font-label-lg text-label-lg text-on-surface">
                         Lipid Panel
                       </p>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        Processed: Oct 15, 2024
+                      <p className="font-label-md text-label-md text-on-surface-variant">
+                        Oct 15, 2024 • Quest Diagnostics
                       </p>
                     </div>
                   </div>
-                  <a
-                    className="flex items-center gap-1 font-label-md text-label-md text-secondary group-hover:bg-secondary group-hover:text-white px-3 py-1.5 rounded-lg transition-all"
-                    href="#"
-                  >
-                    <span
-                      className="material-symbols-outlined text-[18px]"
-                      data-icon="download"
-                    >
-                      download
-                    </span>
-                    PDF
-                  </a>
-                </div>
-              </div>
-
-              <div className="mt-6 p-4 bg-secondary-fixed/30 rounded-xl border border-secondary-fixed flex items-start gap-4">
-                <span
-                  className="material-symbols-outlined text-secondary"
-                  data-icon="info"
-                >
-                  info
+                  <span className="bg-primary-container text-on-primary-container font-label-md px-3 py-1 rounded-full">
+                    Normal
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="md:col-span-4 flex flex-col gap-6">
+            <div className="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6 relative overflow-hidden">
+              <div className="flex items-center justify-between mb-3">
+                <span className="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">
+                  Next Appointment
                 </span>
-                <div>
-                  <p className="font-label-md text-label-md text-on-secondary-fixed-variant">
-                    Results Interpretation
-                  </p>
-                  <p className="font-body-sm text-body-sm text-on-secondary-fixed-variant/80">
-                    Your CBC results are within the normal range. Dr. Thorne
-                    will discuss the Lipid Panel during your next visit.
-                  </p>
-                </div>
+                <span
+                  className="material-symbols-outlined text-on-surface-variant"
+                  data-icon="more_horiz"
+                >
+                  more_horiz
+                </span>
               </div>
-            </section>
-          </div>
-
-          <div className="fixed bottom-margin-desktop right-margin-desktop flex flex-col gap-3 items-end">
-            <button
-              className="flex items-center gap-3 bg-white text-primary border border-outline-variant shadow-lg px-6 py-3 rounded-full hover:bg-surface-container-high transition-all group"
-              id="quick-action-msg"
-            >
-              <span className="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                Message Doctor
-              </span>
-              <span
-                className="material-symbols-outlined text-secondary"
-                data-icon="chat_bubble"
-              >
-                chat_bubble
-              </span>
-            </button>
-            <button className="flex items-center gap-3 bg-secondary text-white shadow-xl px-6 py-4 rounded-full hover:scale-105 transition-all group">
-              <span className="font-label-md text-label-md">
-                Book New Appointment
-              </span>
-              <span className="material-symbols-outlined" data-icon="add">
-                add
-              </span>
-            </button>
-          </div>
-        </main>
-
-        <footer className="ml-64 bg-surface-container-highest w-auto py-8 border-t border-outline-variant">
-          <div className="w-full px-10 max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex flex-col">
-              <h4 className="font-headline-md text-headline-md font-bold text-primary">
-                MedLink
-              </h4>
-              <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                © 2024 MedLink Healthcare Systems. All rights reserved.
-              </p>
+              <div className="relative z-10">
+                <h3 className="font-headline-md text-headline-md mb-1 text-on-surface">
+                  Dr. Aris Thorne
+                </h3>
+                <p className="font-body-md text-body-md mb-4 text-on-surface-variant">
+                  Cardiology Specialist
+                </p>
+                <div className="flex items-center gap-3 mb-3 p-3 rounded-lg w-fit">
+                  <span className="material-symbols-outlined text-sm text-on-surface-variant">
+                    calendar_today
+                  </span>
+                  <span className="font-label-md text-label-md text-on-surface-variant">
+                    Oct 24, 2024 at 10:30 AM
+                  </span>
+                </div>
+                <button className="w-full mt-sm bg-primary text-on-primary font-label-lg text-label-lg py-3 px-4 rounded-lg hover:bg-surface-tint transition-colors flex justify-center items-center gap-1 shadow-sm">
+                  <span className="material-symbols-outlined">video_call</span>
+                  Join Video Consultation
+                </button>
+              </div>
             </div>
-            <div className="flex gap-6">
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
-                Privacy Policy
-              </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
-                Terms of Service
-              </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
-                HIPAA Compliance
-              </a>
-              <a
-                className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors"
-                href="#"
-              >
-                Contact Support
-              </a>
+            <div className="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6 flex-1">
+              <div className="flex justify-between items-center mb-4 border-b border-outline-variant/30 pb-3">
+                <h3 className="font-headline-md text-headline-md text-on-surface">
+                  Daily Medications
+                </h3>
+                <span className="material-symbols-outlined text-on-surface-variant">
+                  medication
+                </span>
+              </div>
+              <ul className="flex flex-col gap-1">
+                <li className="flex items-start gap-3 p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+                  <input
+                    className="mt-1 rounded-sm text-primary focus:ring-primary border-outline-variant bg-surface-container-low h-4 w-4"
+                    type="checkbox"
+                  />
+                  <div>
+                    <p className="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">
+                      Lisinopril 10mg
+                    </p>
+                    <p className="font-label-md text-label-md text-on-surface-variant">
+                      1 pill, Morning
+                    </p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3 p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+                  <input
+                    className="mt-1 rounded-sm text-primary focus:ring-primary border-outline-variant bg-surface-container-low h-4 w-4"
+                    type="checkbox"
+                  />
+                  <div>
+                    <p className="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">
+                      Atorvastatin 20mg
+                    </p>
+                    <p className="font-label-md text-label-md text-on-surface-variant">
+                      1 pill, Evening
+                    </p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3 p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+                  <input
+                    className="mt-1 rounded-sm text-primary focus:ring-primary border-outline-variant bg-surface-container-low h-4 w-4"
+                    type="checkbox"
+                  />
+                  <div>
+                    <p className="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">
+                      Vitamin D3 2000 IU
+                    </p>
+                    <p className="font-label-md text-label-md text-on-surface-variant">
+                      1 pill, with food
+                    </p>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
-        </footer>
+        </div>
+      </main>
+      <div className="fixed bottom-margin-desktop right-margin-desktop flex flex-col gap-3 z-50">
+        <button
+          aria-label="Message Doctor"
+          className="w-14 h-14 rounded-xl bg-secondary-container text-on-secondary-container shadow-md hover:shadow-lg transition-all flex items-center justify-center hover:-translate-y-1"
+        >
+          <span
+            className="material-symbols-outlined text-2xl"
+            style={{ fontVariationSettings: "'FILL' 1" }}
+          >
+            <Link to="/patient/messagingpage">chat</Link>
+          </span>
+        </button>
+        <button
+          aria-label="Book New Appointment"
+          className="w-14 h-14 rounded-xl bg-primary text-on-primary shadow-md hover:shadow-lg transition-all flex items-center justify-center hover:-translate-y-1"
+        >
+          <span
+            className="material-symbols-outlined text-2xl"
+            style={{ fontVariationSettings: "'FILL' 1" }}
+          >
+            <Link to="/patient/appointmentdetails">add</Link>
+          </span>
+        </button>
       </div>
     </div>
   );

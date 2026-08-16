@@ -26,5 +26,7 @@ jobs:
         working-directory: backend
 
       - name: Run Tests
-        run: npm run test:run
+        run: |
+          echo "=== backend: tests ==="
+          npm test 2>&1 | tee backend-tests.log
         working-directory: backend

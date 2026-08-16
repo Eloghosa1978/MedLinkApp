@@ -1,10 +1,10 @@
 import { UserDocument, UserModel } from "../../models/authModel";
-import { PatientDocument, PatientModel } from "../../models/patientModel";
-import { DoctorDocument, DoctorModel } from "../../models/doctorModel";
+import { Patient, PatientModel } from "../../models/patientModel";
+import { Doctor, DoctorModel } from "../../models/doctorModel";
 import { pickAllowedFields } from "../../utils/pickAllowedFields";
 import { updateDocument } from "../../utils/updateDocument";
 import { EDITABLE_FIELDS } from "../../constants/editableFields";
-import { findUserById } from "../auth.service";
+import { Model } from "mongoose";
 
 export const updateProfileService = async (
   user: UserDocument,
@@ -37,8 +37,8 @@ export const updateProfileService = async (
   const config = profileConfig[role];
 
   const profileData = pickAllowedFields(body, config.fields);
-  const profile = await updateDocument<PatientDocument | DoctorDocument>(
-    config.model,
+  const profile = await updateDocument<Patient | Doctor>(
+    config.model as Model<Patient | Doctor>,
     {
       userId: user._id,
     },
