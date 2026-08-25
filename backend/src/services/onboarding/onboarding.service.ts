@@ -26,7 +26,7 @@ const handleOnboardingStep = async (
     });
   }
 
-  const requestedStep = Number(req.body.step ?? user.onboardingStep);
+  const requestedStep = req.body.step !== undefined ? Number(req.body.step) : user.onboardingStep;
   if(requestedStep !== user.onboardingStep) {
     return res.status(400).json({
       success: false,

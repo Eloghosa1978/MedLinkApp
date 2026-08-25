@@ -80,11 +80,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       onboardingData,
       config,
     );
-    setMongoUser((prev) =>
-      prev
-        ? { ...prev, onboardingStep: response.data.data.onboardingStep }
-        : prev,
-    );
+
+    await syncUserWithBackend();
     return response.data;
   };
 

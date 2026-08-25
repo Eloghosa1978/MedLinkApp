@@ -1,4 +1,5 @@
 import { type UseFormRegister } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 interface Step4FormData {
   emergencyContact?: {
@@ -165,7 +166,7 @@ const Step4 = ({ register }: Step4Props) => {
                     <span className="material-symbols-outlined text-[18px]">
                       arrow_back
                     </span>
-                    Back
+                    <Link to="./Step3">Back</Link>
                   </button>
                   <button
                     className="bg-primary hover:bg-primary-container text-on-primary px-6 py-2 rounded-lg text-label-lg font-label-lg transition-colors flex items-center justify-center min-w-[160px]"

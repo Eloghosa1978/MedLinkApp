@@ -11,6 +11,22 @@ interface MongoUser {
   phoneNumber: string;
   dateOfBirth: string;
   gender: "male" | "female"
+
+  licenseNumber?: string;
+  practiceType?: "hospital" | "private" | "both";
+  primarySpecialization?: string;
+  specializations?: string[];
+  qualifications?: string[];
+  biography?: string;
+  specialistSince?: string;
+  licensedSince?: string;
+  hospitalId?: string;
+  practiceLocation?: {
+    street?: string;
+    city?: string;
+  };
+  consultationFee?: number;
+  consultationModes?: "patient" | "virtual";
 }
 
 interface OnboardingPayload {

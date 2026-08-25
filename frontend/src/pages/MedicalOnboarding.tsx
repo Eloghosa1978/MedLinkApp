@@ -1,12 +1,16 @@
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Step1 from "./Step1";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../../context/AuthContext";
-import { useEffect } from "react";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
+import DoctorStep1 from "./DoctorStep1";
+import DoctorStep2 from "./DoctorStep2";
+import DoctorStep3 from "./DoctorStep3";
+import DoctorStep4 from "./DoctorStep4";
 
 interface OnboardingFormData {
   bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
@@ -15,31 +19,50 @@ interface OnboardingFormData {
   weight?: number;
   allergies?: string;
   chronicConditions?: string;
-  address: {
+  address?: {
     street: string;
     city: string;
     state: string;
     country: string;
   };
-  emergencyContact: {
+  emergencyContact?: {
     name: string;
     relationship: string;
     phoneNumber: string;
   };
+  phoneNumber?: string;
+  LicenseNumber?: string;
+  licensedSince?: Date;
+  PracticeType?: "hospital" | "private" | "both";
+  PrimarySpecialization?: string;
+  Specializations?: string;
+  Qualifications?: string;
+  Biography?: string;
+  SpecialistSince?: Date;
+  practiceLocation?: {
+    street?: string;
+    city?: string;
+  };
+  hospitalId?: string;
+  consultationFee?: number;
+  consultationModes?: "patient" | "virtual";
 }
 
 const MedicalOnboarding = () => {
+  const [savedPracticeType, setSavedPracticeType] = useState<string>("");
   const { onBoarding, mongoUser } = useAuth();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<OnboardingFormData>();
-  console.log("Current Form Errors Tracker Status:", errors);
+  const { register, handleSubmit } = useForm<OnboardingFormData>();
 
-  const currentStep = Number(searchParams.get("step") ?? "1") || 1;
+  const currentStep = mongoUser?.onboardingStep || 1;
+  searchParams.get("step");
+
+  useEffect(() => {
+    if (mongoUser?.practiceType) {
+      setSavedPracticeType(mongoUser.practiceType);
+    }
+  }, [mongoUser]);
 
   useEffect(() => {
     if (mongoUser?.onboardingStep && mongoUser.onboardingStep !== currentStep) {
@@ -54,12 +77,14 @@ const MedicalOnboarding = () => {
 
     onSuccess: (response) => {
       if (currentStep === 4) {
-        navigate("/patient/dashboard", { replace: true });
+        if (mongoUser?.role === "doctor")
+          navigate("/doctor/dashboard", { replace: true });
+        else navigate("/patient/dashboard", { replace: true });
         return;
       }
 
       const nextStep = Number(
-        response?.data?.onboardingStep || currentStep + 1,
+        response?.data?.onboardingStep ?? currentStep + 1,
       );
 
       if (nextStep <= 4) {
@@ -114,52 +139,112 @@ const MedicalOnboarding = () => {
       </header>
       <form
         onSubmit={handleSubmit((formData) => {
-          if (currentStep === 1) {
-            mutation.mutate({
-              bloodGroup: formData.bloodGroup,
-              genotype: formData.genotype,
-            });
-          } else if (currentStep === 2) {
-            mutation.mutate({
-              height: formData.height ? Number(formData.height) : undefined,
-              weight: formData.weight ? Number(formData.weight) : undefined,
-              allergies: formData.allergies
-                ? formData.allergies.split(",").map((s) => s.trim())
-                : [],
-              chronicConditions: formData.chronicConditions
-                ? formData.chronicConditions.split(",").map((s) => s.trim())
-                : [],
-            });
-          } else if (currentStep === 3) {
-            mutation.mutate({
-              address: {
-                street: formData.address.street,
-                city: formData.address.city,
-                state: formData.address.state,
-                country: formData.address.country,
-              },
-            });
-          } else if (currentStep === 4) {
-            mutation.mutate({
-              emergencyContact: {
-                name: formData.emergencyContact.name,
-                relationship: formData.emergencyContact.relationship,
-                phoneNumber: formData.emergencyContact.phoneNumber,
-              },
-            });
+          if (!mongoUser) return;
+          if (mongoUser.role === "patient") {
+            if (currentStep === 1) {
+              mutation.mutate({
+                bloodGroup: formData.bloodGroup,
+                genotype: formData.genotype,
+              });
+            } else if (currentStep === 2) {
+              mutation.mutate({
+                height: formData.height ? Number(formData.height) : undefined,
+                weight: formData.weight ? Number(formData.weight) : undefined,
+                allergies: formData.allergies
+                  ? formData.allergies.split(",").map((s) => s.trim())
+                  : [],
+                chronicConditions: formData.chronicConditions
+                  ? formData.chronicConditions.split(",").map((s) => s.trim())
+                  : [],
+              });
+            } else if (currentStep === 3) {
+              mutation.mutate({
+                address: {
+                  street: formData.address?.street || "",
+                  city: formData.address?.city || "",
+                  state: formData.address?.state || "",
+                  country: formData.address?.country || "",
+                },
+              });
+            } else if (currentStep === 4) {
+              mutation.mutate({
+                emergencyContact: {
+                  name: formData.emergencyContact?.name || "",
+                  relationship: formData.emergencyContact?.relationship || "",
+                  phoneNumber: formData.emergencyContact?.phoneNumber || "",
+                },
+              });
+              navigate("/patient/dashboard", { replace: true });
+            }
+          } else if (mongoUser.role === "doctor") {
+            if (currentStep === 1) {
+              setSavedPracticeType(formData.PracticeType || "");
 
-            navigate("/patient/dashboard", { replace: true });
+              mutation.mutate({
+                phoneNumber: formData.phoneNumber,
+                licenseNumber: formData.LicenseNumber,
+                practiceType: formData.PracticeType,
+                licensedSince: formData.licensedSince
+                  ? String(formData.licensedSince)
+                  : undefined,
+              });
+            } else if (currentStep === 2) {
+              mutation.mutate({
+                primarySpecialization: formData.PrimarySpecialization,
+                biography: formData.Biography,
+                specialistSince: formData.SpecialistSince
+                  ? String(formData.SpecialistSince)
+                  : undefined,
+                specializations: formData.Specializations
+                  ? formData.Specializations.split(",").map((s) => s.trim())
+                  : [],
+                qualifications: formData.Qualifications
+                  ? formData.Qualifications.split(",").map((s) => s.trim())
+                  : [],
+              });
+            } else if (currentStep === 3) {
+              mutation.mutate({
+                practiceLocation: {
+                  street: formData.practiceLocation?.street || "",
+                  city: formData.practiceLocation?.city || "",
+                },
+                hospitalId: formData.hospitalId || undefined,
+              });
+            } else if (currentStep === 4) {
+              mutation.mutate({
+                consultationFee: formData.consultationFee
+                  ? Number(formData.consultationFee)
+                  : 0,
+                consultationModes: formData.consultationModes
+                  ? [formData.consultationModes]
+                  : [],
+              });
+              navigate("/doctor/dashboard", { replace: true });
+            }
           }
         })}
       >
-        {currentStep === 1 ? (
-          <Step1 register={register} />
+        {mongoUser?.role === "patient" ? (
+          currentStep === 1 ? (
+            <Step1 register={register} />
+          ) : currentStep === 2 ? (
+            <Step2 register={register} />
+          ) : currentStep === 3 ? (
+            <Step3 register={register} />
+          ) : (
+            <Step4 register={register} />
+          )
+        ) : currentStep === 1 ? (
+          <DoctorStep1 register={register} />
         ) : currentStep === 2 ? (
-          <Step2 register={register} />
+          <DoctorStep2 register={register} />
         ) : currentStep === 3 ? (
-          <Step3 register={register} />
+          <DoctorStep3
+            register={register}
+            practiceTypeOverride={savedPracticeType}
+          />
         ) : (
-          <Step4 register={register} />
+          <DoctorStep4 register={register} />
         )}
       </form>
       <footer className="mt-auto border-t border-outline-variant py-8 px-4 md:px-margin-desktop bg-surface-container-low text-center">

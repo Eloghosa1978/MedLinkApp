@@ -29,7 +29,7 @@ type DoctorStepThreeData = {
 };
 type DoctorStepFourData = {
   consultationFee?: number;
-  conultationModes?: "patient" | "virtual";
+  consultationModes?: "patient" | "virtual";
 };
 
 const handleDoctorStepOne = async (

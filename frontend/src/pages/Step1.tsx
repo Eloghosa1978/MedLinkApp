@@ -91,7 +91,7 @@ const Step1 = ({ register }: Step1Props) => {
                         id="bloodGroup"
                         name="bloodGroup"
                       >
-                        <option disabled hidden selected value="">
+                        <option disabled hidden selected defaultValue="">
                           Select Blood Group
                         </option>
                         <option value="A+">A+</option>
