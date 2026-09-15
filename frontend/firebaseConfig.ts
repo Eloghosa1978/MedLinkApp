@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+/// <reference types="vite/client" />
 import { initializeApp, type FirebaseApp } from "firebase/app";
 import { getAuth, type Auth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use

@@ -160,7 +160,7 @@ Authorization: Bearer <firebase-id-token>
 Example:
 
 ```http
-GET /api/profile
+GET /api/profile/
 ```
 
 Example response:
@@ -391,7 +391,6 @@ Example body:
 
 ```json
 {
-  "phoneNumber": "08012345678",
   "licenseNumber": "MD-2024-001",
   "licensedSince": "2020-01-01",
   "practiceType": "private"
@@ -467,7 +466,8 @@ Example body:
 
 ```json
 {
-  "consultationModes": ["physical", "virtual"]
+  "consultationModes": ["physical", "virtual"],
+  "consultationFees": 5000
 }
 ```
 

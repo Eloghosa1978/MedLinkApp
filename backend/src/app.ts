@@ -4,10 +4,15 @@ import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import rateLimit from "express-rate-limit";
 import profileRoutes from "./routes/profile.routes";
-
+import doctorRoutes from "./routes/doctor.routes";
 // defining routes
 import authRoutes from "./routes/auth.routes";
+// importing the models to be used in the app
+import "./config/models";
 
+import { globalErrorHandler } from "./middleware/error.middleware";
+
+import availabilityRoutes from "./routes/availability.routes";
 const app = express();
 
 app.use(helmet());
@@ -56,8 +61,12 @@ app.use("/api", globalLimiter);
 
 // use limits to specific auth routes
 app.use("/api/auth", authLimiter, authRoutes);
-// use limits to specific profile routes
+// profile-routes
 app.use("/api/profile", profileRoutes);
+// doctor-rotues
+app.use("/api/doctors", doctorRoutes);
+
+app.use("/api/availability", availabilityRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -65,5 +74,7 @@ app.get("/", (req, res) => {
     message: "MedLink API is running",
   });
 });
+
+app.use(globalErrorHandler);
 
 export default app;
